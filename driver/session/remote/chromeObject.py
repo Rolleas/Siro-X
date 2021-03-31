@@ -4,9 +4,10 @@ from selenium import webdriver
 class Session:
     settings: dict
 
-    def __init__(self, settings: dict, capabilities: dict):
+    def __init__(self, settings: dict, capabilities: dict, fingerprint: dict):
         self.settings = settings
         self.capabilities = capabilities
+        self.fingerprint = fingerprint
 
     def _chromeOptions(self) -> object:
         chromeOptionsDriver = webdriver.ChromeOptions()

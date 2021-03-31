@@ -1,4 +1,4 @@
-def webGLSerialization(WebGLHash):
+def webGLSerialization(webGLHash):
     injectCode = """
             var inject = function () {
                 var config = {
@@ -133,5 +133,5 @@ def webGLSerialization(WebGLHash):
                 window.top.document.documentElement.appendChild(script_2);
                 script_2.remove();
             }
-            """ % WebGLHash
+            """ % webGLHash
     return injectCode

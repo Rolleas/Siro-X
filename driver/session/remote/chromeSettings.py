@@ -1,7 +1,6 @@
 class ChromeSettingsPattern:
     OPTIONS = {
         'user-agent': None,
-        'platform': 'Win32',
         'proxy': None,
         'user-profile': None,
         'screen-resolution': '1920,1080',
@@ -16,6 +15,17 @@ class ChromeSettingsPattern:
             "enableVNC": True,
             "enableVideo": False
         }
+    }
+
+    FINGERPRINT = {
+        "platform": "Win32",
+        "webGLHash": 0.1293832542,
+        "CanvasHash": {
+            'r': 1,
+            'g': 1,
+            'b': 2,
+            'a': 3
+        },
     }
 
 
@@ -47,3 +57,18 @@ class ChromeSettings:
             raise ValueError('cannot be used')
         else:
             self._options[name] = value
+
+
+class ChromeFingerprint:
+    def __init__(self):
+        self._fingerprint = ChromeSettingsPattern.FINGERPRINT.copy()
+
+    @property
+    def fingerprint(self) -> dict:
+        return self._fingerprint
+
+    def set_argument(self, name, value):
+        if name not in self._fingerprint:
+            raise ValueError('cannot be used')
+        else:
+            self._fingerprint[name] = value
