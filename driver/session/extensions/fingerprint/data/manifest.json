@@ -15,7 +15,7 @@
         "matches": ["*://*/*"],
         "match_about_blank": true,
         "run_at": "document_start",
-        "js": ["platform.js", "WebGL.js"]
+        "js": ["platform.js", "webGL.js", "canvas.js"]
       }],
    "minimum_chrome_version":"22.0.0"
 }

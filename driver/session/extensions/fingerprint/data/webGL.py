@@ -1,4 +1,4 @@
-def WebGLSerialization(WebGLHash):
+def webGLSerialization(WebGLHash):
     injectCode = """
             var inject = function () {
                 var config = {
