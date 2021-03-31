@@ -1,0 +1,21 @@
+{
+   "version": "1.2.0",
+   "manifest_version": 2,
+   "name": "Sirox",
+   "permissions": [
+       "tabs",
+       "unlimitedStorage",
+       "storage",
+       "<all_urls>",
+       "webRequest",
+       "webRequestBlocking"
+   ],
+     "content_scripts": [{
+        "all_frames": true,
+        "matches": ["*://*/*"],
+        "match_about_blank": true,
+        "run_at": "document_start",
+        "js": ["platform.js", "WebGL.js"]
+      }],
+   "minimum_chrome_version":"22.0.0"
+}
