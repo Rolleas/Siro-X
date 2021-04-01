@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "name": "JS-pointer",
+  "permissions": [
+    "proxy",
+    "tabs",
+    "unlimitedStorage",
+    "storage",
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "content_scripts":[
+    {
+      "all_frames":true,
+      "js":["inject.js"],
+      "matches":["http://*/*","https://*/*"],
+      "match_about_blank":false,
+      "run_at":"document_start"
+    }
+  ],
+  "web_accessible_resources": ["script.js"],
+  "minimum_chrome_version":"22.0.0"
+}
