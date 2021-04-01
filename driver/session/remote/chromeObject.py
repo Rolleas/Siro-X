@@ -28,4 +28,5 @@ class Session:
             command_executor="http://45.156.21.139:4444/wd/hub",
             options=self._chromeOptions(),
             desired_capabilities=self.capabilities)
+        objectChrome.current_url
         return objectChrome
