@@ -4,7 +4,7 @@ def platformSerialization(platform):
                     get: function () { return "%s"; }, \
                     set: function (a) {} \
                     });';
-    
+                    
     var script = document.createElement('script');
     script.appendChild(document.createTextNode(codeToInject));
     (document.head || document.documentElement).appendChild(script);

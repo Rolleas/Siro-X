@@ -1,10 +1,16 @@
 from selenium import webdriver
-
+from driver.extensions.fingerprint.chromeFinger import Fingerprint
 
 class Session:
-    def __init__(self, settings: dict, capabilities: dict):
+    def __init__(self, settings: dict, capabilities: dict, fingerprint: dict):
         self.settings = settings
         self.capabilities = capabilities
+        self.fingerprint = fingerprint
+
+    def initFingerprint(self):
+        fingerprint = Fingerprint(self.fingerprint)
+        extensionPath = fingerprint.makeExtension()
+        return extensionPath
 
     def _chromeOptions(self) -> object:
         chromeOptionsDriver = webdriver.ChromeOptions()
@@ -18,6 +24,7 @@ class Session:
         if self.settings['user-agent'] is not None:
             chromeOptionsDriver.add_argument(
                 f'user-agent={self.settings["user-agent"]}')
+        chromeOptionsDriver.add_extension(self.initFingerprint())
         return chromeOptionsDriver
 
     def make(self) -> object:
