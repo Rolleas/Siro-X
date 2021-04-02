@@ -3,7 +3,7 @@ class ChromeSettingsPattern:
         'user-agent': None,
         'proxy': None,
         'user-profile': None,
-        'screen-resolution': '1920,1080',
+        'screen-resolution': '1920,1080'
     }
 
     CAPABILITIES = {
