@@ -2,12 +2,9 @@ from selenium import webdriver
 
 
 class Session:
-    settings: dict
-
-    def __init__(self, settings: dict, capabilities: dict, fingerprint: dict):
+    def __init__(self, settings: dict, capabilities: dict):
         self.settings = settings
         self.capabilities = capabilities
-        self.fingerprint = fingerprint
 
     def _chromeOptions(self) -> object:
         chromeOptionsDriver = webdriver.ChromeOptions()
@@ -25,8 +22,7 @@ class Session:
 
     def make(self) -> object:
         objectChrome = webdriver.Remote(
-            command_executor="http://45.156.21.139:4444/wd/hub",
+            command_executor="http://45.156.22.26:4444/wd/hub",
             options=self._chromeOptions(),
             desired_capabilities=self.capabilities)
-        objectChrome.current_url
         return objectChrome
