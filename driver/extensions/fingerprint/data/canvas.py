@@ -1,4 +1,8 @@
-def canvasSerialization(CanvasHash):
+def canvasSerialization(CanvasHash: dict):
+    r = CanvasHash['r']
+    g = CanvasHash['g']
+    b = CanvasHash['b']
+    a = CanvasHash['a']
     injectCode = """var inject = function () {
           const toBlob = HTMLCanvasElement.prototype.toBlob;
           const toDataURL = HTMLCanvasElement.prototype.toDataURL;
@@ -7,7 +11,7 @@ def canvasSerialization(CanvasHash):
           var noisify = function (canvas, context) {
             if (context) {
               const shift = {
-                'r': %s,
+                'r': "%s",
                 'g': %s,
                 'b': %s,
                 'a': %s
@@ -81,5 +85,5 @@ def canvasSerialization(CanvasHash):
           //
           window.top.document.documentElement.appendChild(script_2);
           script_2.remove();
-        }""" % CanvasHash["r"], CanvasHash["g"], CanvasHash["b"], CanvasHash["a"]
+        }""" % (r, g, b, a)
     return injectCode

@@ -1,4 +1,5 @@
 import time
+import random
 
 
 # ==========
@@ -26,15 +27,19 @@ class Pointer:
     # ==========
     # Принимает selector элемента на сайте и производит клик на него
     # ==========
-    def click(self, cssSelector):
-        pass
+    def clickOnElement(self, cssSelector):
+        jsCode = "pointer.click_element(arguments[0])"
+        self.chromeDriver.execute_script(jsCode, cssSelector)
+        time.sleep(random.uniform(2, 5))
 
     # ==========
     # Принимает selector элемента на сайте и производит клик на него
     # с перемещением курсора мыши на элемент
     # ==========
-    def moveAndClick(self, cssSelector):
-        pass
+    def moveMouseToElement(self, cssSelector):
+        jsCode = "pointer.move_mouse_to_element(arguments[0])"
+        self.chromeDriver.execute_script(jsCode, cssSelector)
+        time.sleep(random.uniform(2, 5))
 
     # ==========
     # Выбирает любой элемент на странице с тегом <a>
@@ -47,7 +52,13 @@ class Pointer:
         if self.waiter(currentUrl) is False:
             print("Button not pressed")
 
-
+    # ==========
+    # Перемещает курсор на произвольный элемент с тегом <a>
+    # ==========
+    def moveToRandomElement(self):
+        jsCode = "pointer.move_mouse_to_random_element()"
+        self.chromeDriver.execute_script(jsCode)
+        time.sleep(random.uniform(2, 5))
 
 
 

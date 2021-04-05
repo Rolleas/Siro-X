@@ -1,8 +1,8 @@
 import zipfile
 from pathlib import Path
-from data.canvas import canvasSerialization
-from data.platform import platformSerialization
-from data.webGL import webGLSerialization
+from driver.extensions.fingerprint.data.canvas import canvasSerialization
+from driver.extensions.fingerprint.data.platform import platformSerialization
+from driver.extensions.fingerprint.data.webGL import webGLSerialization
 
 
 class Fingerprint:
@@ -19,13 +19,16 @@ class Fingerprint:
         return manifest_json
 
     def __loadPlatform(self):
-        return platformSerialization(self._fingerprint['platform'])
+        return platformSerialization(self._fingerprint['platform'],
+                                     self._fingerprint['deviceMemory'],
+                                     self._fingerprint['hardwareConcurrency'])
 
     def __loadWebGL(self):
         return webGLSerialization(self._fingerprint['webGLHash'])
 
     def __loadCanvas(self):
-        return canvasSerialization(self._fingerprint['CanvasHash'])
+        CanvasHash = dict(self._fingerprint['CanvasHash'])
+        return canvasSerialization(CanvasHash)
 
     def makeExtension(self):
         with zipfile.ZipFile(self.__extensionPath, 'w') as zp:

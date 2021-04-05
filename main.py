@@ -30,7 +30,8 @@ class Execution:
     def makeDriver(self):
         options = self.chromeOptions()
         capabilities = self.capabilities()
-        return Session(options, capabilities).make()
+        fingerprint = self.fingerprintOptions()
+        return Session(options, capabilities, fingerprint).make()
 
     def case(self):
         import time

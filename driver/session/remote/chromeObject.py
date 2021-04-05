@@ -1,6 +1,7 @@
 from selenium import webdriver
 from driver.extensions.fingerprint.chromeFinger import Fingerprint
 
+
 class Session:
     def __init__(self, settings: dict, capabilities: dict, fingerprint: dict):
         self.settings = settings
@@ -24,6 +25,13 @@ class Session:
         if self.settings['user-agent'] is not None:
             chromeOptionsDriver.add_argument(
                 f'user-agent={self.settings["user-agent"]}')
+
+        preferences = {
+            "webrtc.ip_handling_policy": "disable_non_proxied_udp",
+            "webrtc.multiple_routes_enabled": False,
+            "webrtc.nonproxied_udp_enabled": False
+        }
+        chromeOptionsDriver.add_experimental_option("prefs", preferences)
         chromeOptionsDriver.add_extension(self.initFingerprint())
         return chromeOptionsDriver
 
