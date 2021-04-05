@@ -19,6 +19,8 @@ class ChromeSettingsPattern:
 
     FINGERPRINT = {
         "platform": "Win32",
+        "deviceMemory": 2,
+        "hardwareConcurrency": 2,
         "webGLHash": 0.1293832542,
         "CanvasHash": {
             'r': 1,
