@@ -3,17 +3,41 @@ from driver.extensions.fingerprint.chromeFinger import Fingerprint
 
 
 class Session:
-    def __init__(self, settings: dict, capabilities: dict, fingerprint: dict):
+    def __init__(self, settings, capabilities, fingerprint):
+        """
+        Конструктор принимает набор парамметров для настрйки сессии
+        шаблоны хранятся в chromeSettings
+
+        :type fingerprint: dict
+        :type capabilities: dict
+        :type settings: dict
+        """
         self.settings = settings
         self.capabilities = capabilities
         self.fingerprint = fingerprint
 
     def initFingerprint(self):
+        """
+        Создание объекта расширения для внедрения настроект отпечатка
+        в браузер
+
+        :return extensionPath: object
+        """
         fingerprint = Fingerprint(self.fingerprint)
         extensionPath = fingerprint.makeExtension()
         return extensionPath
 
     def _chromeOptions(self) -> object:
+        """
+        Создание объекта настроект для сессии браузер
+        - отключение webdriver = true
+        - изменение разрешения экрана
+        - установка значения user-agent
+        - отключение WebRTC
+        - инитиализация Fingerprint extension
+
+        :return chromeOptionsDriver: object
+        """
         chromeOptionsDriver = webdriver.ChromeOptions()
         chromeOptionsDriver.add_argument(
             '--disable-blink-features=AutomationControlled')
@@ -36,6 +60,12 @@ class Session:
         return chromeOptionsDriver
 
     def make(self) -> object:
+        """
+        Создание сесси с набором настроект
+        возвращает объекта сесси для дальнейшего взаимодействия
+
+        :return objectChrome: object
+        """
         objectChrome = webdriver.Remote(
             command_executor="http://45.156.22.26:4444/wd/hub",
             options=self._chromeOptions(),
