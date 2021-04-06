@@ -8,7 +8,7 @@ class ChromeSettingsPattern:
 
     CAPABILITIES = {
         "browserName": "chrome",
-        "browserVersion": "89.0",
+        "browserVersion": "90",
         "sessionTimeout": "10m",
         "skin": "1920x1080",
         "selenoid:options": {

@@ -34,11 +34,15 @@ class Execution:
         return Session(options, capabilities, fingerprint).make()
 
     def case(self):
+        #self.loadCookies()
         import time
         time.sleep(5000)
 
 
 Execution().case()
+
+
+
 
 
 

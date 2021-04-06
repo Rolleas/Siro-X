@@ -30,5 +30,5 @@ def platformSerialization(platform, deviceMemory, hardwareConcurrency):
     (document.head || document.documentElement).appendChild(script);
     script.parentNode.removeChild(script);
     
-    """ % platform, deviceMemory, hardwareConcurrency
+    """ % (platform, deviceMemory, hardwareConcurrency)
     return injectCode
