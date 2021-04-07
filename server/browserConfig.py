@@ -1,8 +1,10 @@
 import json
+import os
 
 
 class EditConfiguration:
-    _configPath = r'D:\GitHub\Siro-X\server\browsers.json'
+    _configPath = r'/root/.aerokube/selenoid/browsers.json'
+    _command = 'sh /home/server/reload.sh'
 
     def __init__(self, name):
         """
@@ -53,8 +55,12 @@ class EditConfiguration:
         image = {
             "image": "selenoid/chrome:89.0",
             "port": "4444",
-            "volumes": [f"/home/profiles/{self.name}:/home/profiles/{self.name}"],
+            "volumes": [
+                f"/home/profiles/{self.name}:/home/profiles/{self.name}"],
             "path": "/"
         }
         data['chrome']['versions'][self.name] = image
         self._jsonSerializer(data)
+
+        # Перезапуск серверной части для применения конфигурации
+        os.system(self._command)
