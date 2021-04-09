@@ -15,10 +15,10 @@ class DataBase:
 
     @staticmethod
     def connect():
-        connection = pymysql.connect(host='',
-                                     user='',
-                                     password='',
-                                     database='',
+        connection = pymysql.connect(host='csgoapblog.beget.tech',
+                                     user='csgoapblog_sirox',
+                                     password='Deroton88',
+                                     database='csgoapblog_sirox',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
         return connection
@@ -56,5 +56,9 @@ class DataBase:
               f"'{server}')"
         self.cursor.execute(sql)
 
+    @DataBaseDecorate
+    def changePrivate(self, id, private):
+        sql = f"UPDATE profiles SET private = '{private}' WHERE id = '{id}'"
+        self.cursor.execute(sql)
 
 #DataBase().addProfile('ad', 'asd', 'asd','asd','asd','asd','asd','asd','asd')

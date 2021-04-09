@@ -2,36 +2,20 @@ from datetime import datetime, timedelta
 from dataBaseHandler import DataBase
 
 
-def choiceProfile():
-    db = DataBase()
-    profiles = db.catalogProfiles()
-    for p in profiles:
-        current = datetime.now()
-        last = current - timedelta(seconds=3)
-        print(current)
-        a = datetime.strptime(p['lastWalk'], '%Y-%m-%d %H:%M:%S.%f')
-        print(a)
-        if a > last or a == 'NULL':
-            print(p)
-
-choiceProfile()
-
-
 class Profile:
-    def __init__(self):
+    def __init__(self, server):
+        self.server = server
         self.db = DataBase()
-
-    def __del__(self):
-        del self.db
 
     def sortingByDate(self):
         profiles = []
-        listProfiles = self.db.catalogProfiles()
+        listProfiles = self.db.catalogProfiles(self.server)
         currentDate = datetime.now() - timedelta(hours=24)
         counter = 0
         for profile in listProfiles:
             if profile['lastWalk'] != 'NULL':
-                lastWalk = datetime.strptime(profile['lastWalk'], '%Y-%m-%d %H:%M:%S.%f')
+                lastWalk = datetime.strptime(profile['lastWalk'],
+                                             '%Y-%m-%d %H:%M:%S.%f')
                 if lastWalk > currentDate:
                     profiles.append(profile)
                     counter += 1
@@ -60,6 +44,5 @@ class Profile:
             return profile
         else:
             return False
-
 
 

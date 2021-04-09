@@ -8,37 +8,36 @@ class Execution:
         self.values = values
         self.driver = self.makeDriver()
 
-    @staticmethod
-    def chromeOptions():
+    def chromeOptions(self):
         optionsChrome = ChromeSettings().options
-        optionsChrome['user-agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
-        optionsChrome['screen-resolution'] = '1920,1080'
+        optionsChrome['user-agent'] = self.values['user_agent']
+        optionsChrome['screen-resolution'] = self.values['screenResolution']
+        optionsChrome['profile'] = self.values['name']
         return optionsChrome
 
-    @staticmethod
-    def capabilities():
+    def capabilitiesOptions(self):
         capabilities = ChromeCapabilities().capabilities
+        capabilities['skin'] = self.values['screenResolution'].replace(',', 'x')
+        capabilities['browserVersion'] = self.values['name']
         return capabilities
 
-    @staticmethod
-    def fingerprintOptions():
+    def fingerprintOptions(self):
         fingerprint = ChromeFingerprint().fingerprint
-        fingerprint['platform'] = "MacIntel"
-        fingerprint['WebGlHash'] = 0.039248233
-        fingerprint['CanvasHash'] = {'r': 2, 'g': -3, 'b': 5, 'a': -3}
+        fingerprint['platform'] = self.values['platform']
+        fingerprint['deviceMemory'] = self.values['deviceMemory']
+        fingerprint['hardwareConcurrency'] = self.values['hardwareConcurrency']
+        fingerprint['WebGlHash'] = self.values['WebGlHash']
+        fingerprint['CanvasHash'] = self.values['CanvasHash']
         return fingerprint
 
     def makeDriver(self):
         options = self.chromeOptions()
-        capabilities = self.capabilities()
+        capabilities = self.capabilitiesOptions()
         fingerprint = self.fingerprintOptions()
         return Session(options, capabilities, fingerprint).make()
 
     def case(self):
         pass
-
-
-Execution().case()
 
 
 
