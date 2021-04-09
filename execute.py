@@ -1,12 +1,34 @@
+import ast
 from driver.session.remote.chromeSettings import ChromeSettings,\
     ChromeCapabilities, ChromeFingerprint
 from driver.session.remote.chromeObject import Session
+from database.dataBaseHandler import DataBase
+from datetime import datetime
 
 
-class Execution:
+class Operation:
     def __init__(self, values):
         self.values = values
+        self.db = DataBase()
+
+    def setPrivate(self, status):
+        self.db.changePrivate(self.values['id'], status)
+
+    def changeLastWalk(self):
+        currentDate = datetime.now()
+        self.db.updateLastWalk(self.values['id'], currentDate)
+
+
+class Execution(Operation):
+    def __init__(self, values):
+        super().__init__(values)
+        self.values = values
+        self.setPrivate(1)
         self.driver = self.makeDriver()
+
+    def __del__(self):
+        self.setPrivate(0)
+        self.changeLastWalk()
 
     def chromeOptions(self):
         optionsChrome = ChromeSettings().options
@@ -26,8 +48,8 @@ class Execution:
         fingerprint['platform'] = self.values['platform']
         fingerprint['deviceMemory'] = self.values['deviceMemory']
         fingerprint['hardwareConcurrency'] = self.values['hardwareConcurrency']
-        fingerprint['WebGlHash'] = self.values['WebGlHash']
-        fingerprint['CanvasHash'] = self.values['CanvasHash']
+        fingerprint['WebGlHash'] = self.values['webGLHash']
+        fingerprint['CanvasHash'] = ast.literal_eval(self.values['CanvasHash'])
         return fingerprint
 
     def makeDriver(self):

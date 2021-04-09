@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from dataBaseHandler import DataBase
+from database.dataBaseHandler import DataBase
 
 
 class Profile:
@@ -10,18 +10,19 @@ class Profile:
     def sortingByDate(self):
         profiles = []
         listProfiles = self.db.catalogProfiles(self.server)
-        currentDate = datetime.now() - timedelta(hours=24)
         counter = 0
         for profile in listProfiles:
             if profile['lastWalk'] != 'NULL':
                 lastWalk = datetime.strptime(profile['lastWalk'],
                                              '%Y-%m-%d %H:%M:%S.%f')
-                if lastWalk > currentDate:
+                if lastWalk + timedelta(days=1) <= datetime.now():
                     profiles.append(profile)
                     counter += 1
-            else:
+
+            elif profile['lastWalk'] == 'NULL':
                 profiles.append(profile)
                 counter += 1
+
         if counter >= 0:
             return profiles
         else:
@@ -31,7 +32,7 @@ class Profile:
         profiles = self.sortingByDate()
         if profiles is not False:
             for profile in profiles:
-                if profile['private'] != '1':
+                if profile['private'] != 1:
                     return profile
             else:
                 return False

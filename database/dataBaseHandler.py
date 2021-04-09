@@ -27,10 +27,6 @@ class DataBase:
         def wrapper(*args, **kwargs):
             value = func(*args, **kwargs)
             args[0].connections.commit()
-            try:
-                args[0].connections.close()
-            except pymysqlError:
-                pass
             return value
         return wrapper
 
@@ -42,7 +38,7 @@ class DataBase:
 
     @DataBaseDecorate
     def updateLastWalk(self, id, time):
-        sql = f"UPDATE profiles SET last_walk = '{time}' WHERE id = '{id}'"
+        sql = f"UPDATE profiles SET lastWalk = '{time}' WHERE id = '{id}'"
         self.cursor.execute(sql)
     
     @DataBaseDecorate
