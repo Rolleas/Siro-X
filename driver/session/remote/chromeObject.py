@@ -49,7 +49,6 @@ class Session:
         if self.settings['user-agent'] is not None:
             chromeOptionsDriver.add_argument(
                 f'user-agent={self.settings["user-agent"]}')
-
         preferences = {
             "webrtc.ip_handling_policy": "disable_non_proxied_udp",
             "webrtc.multiple_routes_enabled": False,
