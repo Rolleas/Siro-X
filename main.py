@@ -4,7 +4,8 @@ from driver.session.remote.chromeObject import Session
 
 
 class Execution:
-    def __init__(self):
+    def __init__(self, values):
+        self.values = values
         self.driver = self.makeDriver()
 
     @staticmethod
@@ -34,15 +35,10 @@ class Execution:
         return Session(options, capabilities, fingerprint).make()
 
     def case(self):
-        #self.loadCookies()
-        import time
-        time.sleep(5000)
+        pass
 
 
 Execution().case()
-
-
-
 
 
 
