@@ -24,7 +24,8 @@ class Fingerprint:
                                      self._fingerprint['hardwareConcurrency'])
 
     def __loadWebGL(self):
-        return webGLSerialization(self._fingerprint['webGLHash'])
+        return webGLSerialization(self._fingerprint['webGLHash'],
+                                  self._fingerprint['webGLVendor'])
 
     def __loadCanvas(self):
         CanvasHash = dict(self._fingerprint['CanvasHash'])

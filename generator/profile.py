@@ -1,0 +1,4 @@
+
+
+class ProfileGenerator:
+    pass

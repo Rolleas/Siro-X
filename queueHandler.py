@@ -25,6 +25,10 @@ class Handler:
 
         while threading.active_count() >= 2:
             time.sleep(20)
+        else:
+            # Тут нужно сделать генерацию нового профиля
+            pass
+
 
 
 a = Handler().handler()

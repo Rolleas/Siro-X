@@ -48,7 +48,8 @@ class Execution(Operation):
         fingerprint['platform'] = self.values['platform']
         fingerprint['deviceMemory'] = self.values['deviceMemory']
         fingerprint['hardwareConcurrency'] = self.values['hardwareConcurrency']
-        fingerprint['WebGlHash'] = self.values['webGLHash']
+        fingerprint['webGlHash'] = self.values['webGLHash']
+        fingerprint['webGLVendor'] = self.values['webGLVendor']
         fingerprint['CanvasHash'] = ast.literal_eval(self.values['CanvasHash'])
         return fingerprint
 

@@ -43,13 +43,13 @@ class DataBase:
     
     @DataBaseDecorate
     def addProfile(self, name, user_agent, screenResolution, platform, deviceMemory,
-                   hardwareConcurrency, WebGlHash, CanvasHash, server):
+                   hardwareConcurrency, WebGlHash, webGLVendor, CanvasHash, server):
         sql = f"INSERT INTO profiles (id, name, user_agent, screenResolution," \
-              f"platform, deviceMemory, hardwareConcurrency, WebGlHash," \
+              f"platform, deviceMemory, hardwareConcurrency, WebGlHash, webGLVendor," \
               f"CanvasHash, lastWalk, server) VALUES('NULL', '{name}', '{user_agent}'," \
               f"'{screenResolution}', '{platform}', '{deviceMemory}'," \
-              f"'{hardwareConcurrency}', '{WebGlHash}', '{CanvasHash}', 'NULL'," \
-              f"'{server}')"
+              f"'{hardwareConcurrency}', '{WebGlHash}', {webGLVendor}, " \
+              f"'{CanvasHash}', 'NULL', '{server}')"
         self.cursor.execute(sql)
 
     @DataBaseDecorate

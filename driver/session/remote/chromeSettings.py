@@ -22,6 +22,7 @@ class ChromeSettingsPattern:
         "deviceMemory": 2,
         "hardwareConcurrency": 2,
         "webGLHash": 0.1293832542,
+        "webGLVendor": 'NVIDIA GeForce GTX 550 Ti',
         "CanvasHash": {
             'r': 1,
             'g': 1,
