@@ -13,6 +13,7 @@ class Handler:
         return profile
 
     def makeThread(self, profile):
+        print(profile['name'])
         thread = threading.Thread(target=Execution(profile).case)
         self.threadList.append(thread)
 
@@ -32,5 +33,5 @@ class Handler:
 
 
 a = Handler().handler()
-time.sleep(5)
+time.sleep(5000)
 del a
