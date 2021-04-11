@@ -1,6 +1,7 @@
 import random
 from pathlib import Path
 from database.dataBaseHandler import DataBase
+from server.browserConfig import EditConfiguration
 
 
 class ProfileGenerator:
@@ -66,10 +67,11 @@ class ProfileGenerator:
                    'hardwareConcurrency': self.hardware(),
                    'webGLHash': self.webGLHash(),
                    'webGLVendor': self.webGLVendor(),
-                   'CanvasHash': str(self.canvasHashGenerator()),
+                   'CanvasHash': self.canvasHashGenerator(),
                    'server': server}
         db = DataBase()
         db.addProfile(profile)
+        del db
 
-
-ProfileGenerator().make('instance-1')
+        config = EditConfiguration(profile['name'])
+        config.addProfileConfig()

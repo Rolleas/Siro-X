@@ -45,20 +45,19 @@ class DataBase:
     
     @DataBaseDecorate
     def addProfile(self, profile: dict):
-        print(profile)
-        sql = f"INSERT INTO profiles VALUES (" \
-              f"'NULL'," \
-              f"'{profile['name']}'," \
-              f"'{profile['user_agent']}'," \
-              f"'{profile['screenResolution']}'," \
-              f"'{profile['platform']}'," \
-              f"'{profile['deviceMemory']}'," \
-              f"'{profile['hardwareConcurrency']}'," \
-              f"'{profile['webGLHash']}'," \
-              f"'{profile['webGLVendor']}'," \
-              f"'{profile['CanvasHash']}'," \
-              f"'NULL'," \
-              f"'{profile['server']}', '0')"
+        sql = f'INSERT INTO profiles VALUES (' \
+              f'"NULL",' \
+              f'"{profile["name"]}",' \
+              f'"{profile["user_agent"]}",' \
+              f'"{profile["screenResolution"]}",' \
+              f'"{profile["platform"]}",' \
+              f'"{profile["deviceMemory"]}",' \
+              f'"{profile["hardwareConcurrency"]}",' \
+              f'"{profile["webGLHash"]}",' \
+              f'"{profile["webGLVendor"]}",' \
+              f'"{str(profile["CanvasHash"])}",' \
+              f'"NULL",' \
+              f'"{profile["server"]}", "0")'
         self.cursor.execute(sql)
 
     @DataBaseDecorate
@@ -72,5 +71,3 @@ class DataBase:
         self.cursor.execute(sql)
         data = self.cursor.fetchall()
         return data
-
-#DataBase().addProfile('ad', 'asd', 'asd','asd','asd','asd','asd','asd','asd')
