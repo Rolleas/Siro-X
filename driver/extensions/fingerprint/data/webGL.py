@@ -1,4 +1,4 @@
-def webGLSerialization(webGLHash):
+def webGLSerialization(webGLHash, webGLVendor):
     injectCode = """
             var inject = function () {
                 var config = {
@@ -87,7 +87,7 @@ def webGLSerialization(webGLHash):
                                         else if (arguments[0] === 36349) return config.random.number([10, 11, 12, 13]);
                                         else if (arguments[0] === 33902) return config.random.float([0, 10, 11, 12, 13]);
                                         else if (arguments[0] === 33901) return config.random.float([0, 10, 11, 12, 13]);
-                                        else if (arguments[0] === 37446) return config.random.item(["Intel(R) Iris(TM) Plus Graphics 655"]);
+                                        else if (arguments[0] === 37446) return config.random.item(["%s"]);
                                         else if (arguments[0] === 7938) return config.random.item(["Intel Inc."]);
                                         else if (arguments[0] === 35724) return config.random.item(["WebGL", "WebGL GLSL", "WebGL GLSL ES", "WebGL GLSL ES (OpenGL Chromium"]);
                                         //
@@ -133,5 +133,5 @@ def webGLSerialization(webGLHash):
                 window.top.document.documentElement.appendChild(script_2);
                 script_2.remove();
             }
-            """ % webGLHash
+            """ % (webGLHash, webGLVendor)
     return injectCode

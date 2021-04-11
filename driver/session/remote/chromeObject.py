@@ -54,7 +54,8 @@ class Session:
             "webrtc.multiple_routes_enabled": False,
             "webrtc.nonproxied_udp_enabled": False
         }
-        chromeOptionsDriver.add_argument('--user-data-dir=/home/profiles/glqnsyrebd')
+        chromeOptionsDriver.add_argument(
+            f'--user-data-dir=/home/profiles/{self.settings["profile"]}')
         chromeOptionsDriver.add_experimental_option("prefs", preferences)
         chromeOptionsDriver.add_extension(self.initFingerprint())
         return chromeOptionsDriver

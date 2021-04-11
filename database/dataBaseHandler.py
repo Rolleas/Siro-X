@@ -2,6 +2,15 @@ import pymysql
 from pymysql import Error as pymysqlError
 
 
+def DataBaseDecorate(func):
+    def wrapper(*args, **kwargs):
+        value = func(*args, **kwargs)
+        args[0].connections.commit()
+        return value
+
+    return wrapper
+
+
 class DataBase:
     def __init__(self):
         self.connections = self.connect()
@@ -23,13 +32,6 @@ class DataBase:
                                      cursorclass=pymysql.cursors.DictCursor)
         return connection
 
-    def DataBaseDecorate(func) -> object:
-        def wrapper(*args, **kwargs):
-            value = func(*args, **kwargs)
-            args[0].connections.commit()
-            return value
-        return wrapper
-
     def catalogProfiles(self, server) -> list:
         sql = f"SELECT * FROM profiles WHERE server = '{server}'"
         self.cursor.execute(sql)
@@ -42,19 +44,30 @@ class DataBase:
         self.cursor.execute(sql)
     
     @DataBaseDecorate
-    def addProfile(self, name, user_agent, screenResolution, platform, deviceMemory,
-                   hardwareConcurrency, WebGlHash, CanvasHash, server):
-        sql = f"INSERT INTO profiles (id, name, user_agent, screenResolution," \
-              f"platform, deviceMemory, hardwareConcurrency, WebGlHash," \
-              f"CanvasHash, lastWalk, server) VALUES('NULL', '{name}', '{user_agent}'," \
-              f"'{screenResolution}', '{platform}', '{deviceMemory}'," \
-              f"'{hardwareConcurrency}', '{WebGlHash}', '{CanvasHash}', 'NULL'," \
-              f"'{server}')"
+    def addProfile(self, profile: dict):
+        sql = f'INSERT INTO profiles VALUES (' \
+              f'"NULL",' \
+              f'"{profile["name"]}",' \
+              f'"{profile["user_agent"]}",' \
+              f'"{profile["screenResolution"]}",' \
+              f'"{profile["platform"]}",' \
+              f'"{profile["deviceMemory"]}",' \
+              f'"{profile["hardwareConcurrency"]}",' \
+              f'"{profile["webGLHash"]}",' \
+              f'"{profile["webGLVendor"]}",' \
+              f'"{str(profile["CanvasHash"])}",' \
+              f'"NULL",' \
+              f'"{profile["server"]}", "0")'
         self.cursor.execute(sql)
 
     @DataBaseDecorate
-    def changePrivate(self, id, private):
-        sql = f"UPDATE profiles SET private = '{private}' WHERE id = '{id}'"
+    def changePrivate(self, profileID, private):
+        sql = f"UPDATE profiles SET private = '{private}' " \
+              f"WHERE id = '{profileID}' "
         self.cursor.execute(sql)
 
-#DataBase().addProfile('ad', 'asd', 'asd','asd','asd','asd','asd','asd','asd')
+    def checkName(self, name):
+        sql = f"SELECT * FROM profiles WHERE name = '{name}'"
+        self.cursor.execute(sql)
+        data = self.cursor.fetchall()
+        return data
