@@ -23,7 +23,7 @@ class ProfileGenerator:
         string = 'qwertyuiopasdfghjklzxcvbnm'
         name = ''
         while True:
-            for _ in range(20):
+            for _ in range(15):
                 name += random.choice(string)
             if db.checkName(name) == ():
                 del string, db

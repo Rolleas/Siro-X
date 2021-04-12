@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import time
 import threading
 from execute import Execution
@@ -24,18 +26,19 @@ class Handler:
         del profile
 
     def handler(self):
-        profile = self.loadProfile()
-        if profile is not False:
-            self.makeThread(profile)
-        else:
-            time.sleep(20)
+        while True:
+            profile = self.loadProfile()
+            if profile is not False:
+                self.makeThread(profile)
+            else:
+                time.sleep(20)
 
-        while threading.active_count() >= 2:
-            time.sleep(20)
-        else:
-            self.newConfig()
+            while threading.active_count() >= 2:
+                time.sleep(20)
+            else:
+                self.newConfig()
 
 
-a = Handler().handler()
-time.sleep(5000)
-del a
+if __name__ == '__main__':
+    handler = Handler()
+    handler.handler()
