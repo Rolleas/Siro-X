@@ -12,6 +12,9 @@ def DataBaseDecorate(func):
 
 
 class DataBase:
+    connections = None
+    cursor = None
+
     def __init__(self):
         self.connections = self.connect()
         self.cursor = self.connections.cursor()
@@ -62,9 +65,14 @@ class DataBase:
 
     @DataBaseDecorate
     def changePrivate(self, profileID, private):
-        sql = f"UPDATE profiles SET private = '{private}' " \
-              f"WHERE id = '{profileID}' "
-        self.cursor.execute(sql)
+        try:
+            sql = f"UPDATE profiles SET private = '{private}' " \
+                  f"WHERE id = '{profileID}' "
+            self.cursor.execute(sql)
+        except:
+            self.connections = self.connect()
+            self.cursor = self.connections.cursor()
+            self.changePrivate(profileID, private)
 
     def checkName(self, name):
         sql = f"SELECT * FROM profiles WHERE name = '{name}'"

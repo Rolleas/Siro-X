@@ -15,7 +15,7 @@ class Profile:
             if profile['lastWalk'] != 'NULL':
                 lastWalk = datetime.strptime(profile['lastWalk'],
                                              '%Y-%m-%d %H:%M:%S.%f')
-                if lastWalk + timedelta(days=1) <= datetime.now():
+                if lastWalk + timedelta(hours=6) <= datetime.now():
                     profiles.append(profile)
                     counter += 1
 

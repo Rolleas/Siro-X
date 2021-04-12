@@ -19,7 +19,7 @@ class Operation:
         self.db.updateLastWalk(self.values['id'], currentDate)
 
 
-class Execution(Operation):
+class Collection(Operation):
     def __init__(self, values):
         super().__init__(values)
         self.values = values
@@ -60,6 +60,8 @@ class Execution(Operation):
         return Session(options, capabilities, fingerprint).make()
 
     def case(self):
-        pass
+        import time
+        time.sleep(10)
+        self.driver.quit()
 
 
