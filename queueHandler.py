@@ -32,6 +32,7 @@ class Handler:
             if profile is not False:
                 self.makeThread(profile)
             else:
+                exit(0)
                 self.newConfig()
 
             while threading.active_count() >= 2:

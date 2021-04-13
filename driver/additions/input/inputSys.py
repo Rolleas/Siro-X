@@ -39,13 +39,13 @@ class ActionsDriver:
         :param enter: нажимать ли Enter после ввода
         """
         if self.wait(xpath) is True:
-            element = self.driver.find_element_by_xpath(xpath)
+            element = self.driver.find_elements_by_xpath(xpath)
             element[0].click()
             for symbol in request:
-                element.send_keys(symbol)
+                element[0].send_keys(symbol)
                 time.sleep(random.uniform(0.1, 0.2))
             if enter:
-                element.send_keys(Keys.RETURN)
+                element[0].send_keys(Keys.RETURN)
 
     def swapOnYandexWindow(self) -> bool:
         """
@@ -57,12 +57,29 @@ class ActionsDriver:
         handles = self.driver.window_handles
         for element in handles:
             self.driver.switch_to_window(element)
-            currentUrl = self.driver.current_url
+            currentUrl = str(self.driver.current_url)
             try:
                 currentUrl.index('http://yandex')
+                time.sleep(random.uniform(0.9, 2))
                 return True
             except ValueError:
                 continue
+
+    def closeAllWindow(self):
+        """
+        Закрывает все окна кроме яндекса в основном
+        этот метод сделан для walker
+        """
+        handles = self.driver.window_handles
+        for element in handles:
+            self.driver.switch_to_window(element)
+            currentUrl = str(self.driver.current_url)
+            time.sleep(random.uniform(0.3, 1))
+            try:
+                currentUrl.index('http://yandex')
+                continue
+            except ValueError:
+                self.driver.close()
 
     def swapOnChoose(self, substring: str) -> bool:
         """
@@ -76,9 +93,10 @@ class ActionsDriver:
         handles = self.driver.window_handles
         for element in handles:
             self.driver.switch_to_window(element)
-            currentUrl = self.driver.current_url
+            currentUrl = str(self.driver.current_url)
             try:
                 currentUrl.index(substring)
+                time.sleep(random.uniform(0.9, 2))
                 return True
             except ValueError:
                 continue
@@ -89,12 +107,14 @@ class ActionsDriver:
 
         :return:
         """
-        for _ in range(random.randint(1, 10)):
-            counter = random.randint(500, 1000)
+        for _ in range(random.randint(1, 5)):
+            counter = random.randint(100, 300)
             for pixels in range(counter):
-                self.driver.execute_script(f"window.scrollBy(0,{counter})")
+                self.driver.execute_script(f"window.scrollBy(0,{pixels})")
+                time.sleep(random.uniform(0.2, 0.1))
 
             for pixels in range(counter):
-                self.driver.execute(f"window.scrollBy(0,-{counter})")
+                self.driver.execute_script(f"window.scrollBy(0,-{pixels})")
+                time.sleep(random.uniform(0.2, 0.1))
 
 
