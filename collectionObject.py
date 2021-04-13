@@ -1,9 +1,11 @@
 import ast
+from walker import Walker
+from datetime import datetime
+from selenium import webdriver
+from database.dataBaseHandler import DataBase
+from driver.session.remote.chromeObject import Session
 from driver.session.remote.chromeSettings import ChromeSettings,\
     ChromeCapabilities, ChromeFingerprint
-from driver.session.remote.chromeObject import Session
-from database.dataBaseHandler import DataBase
-from datetime import datetime
 
 
 class Operation:
@@ -22,9 +24,9 @@ class Operation:
 class Collection(Operation):
     def __init__(self, values):
         super().__init__(values)
-        self.values = values
+        self.values: dict = values
         self.setPrivate(1)
-        self.driver = self.makeDriver()
+        self.driver: webdriver.Chrome = self.makeDriver()
 
     def __del__(self):
         self.setPrivate(0)
@@ -60,8 +62,7 @@ class Collection(Operation):
         return Session(options, capabilities, fingerprint).make()
 
     def case(self):
-        import time
-        time.sleep(10)
+        walker = Walker(self.driver)
+        walker.execute()
         self.driver.quit()
-
 

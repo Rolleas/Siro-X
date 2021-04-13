@@ -29,11 +29,19 @@ class Walker:
         self.action.wait('/a')
         time.sleep(random.uniform(0.3, 1))
 
+    def changePage(self):
+        elements = self.driver.find_elements_by_xpath('//a')
+        elements[random.randint(0, len(elements))].click()
+        self.action.wait('//a')
+        time.sleep(random.uniform(0.3, 1))
+
     def execute(self):
         self.driver.get('http://yandex.ru')
         for _ in range(random.randint(40, 100)):
-            self.inputRequest()
+            self.inputRequest() 
             self.chooseResult()
+            self.action.scroll()
+            time.sleep(random.uniform(1, 5))
 
 
 
