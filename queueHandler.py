@@ -41,7 +41,6 @@ class Handler:
                 thread.join()
 
 
-
 if __name__ == '__main__':
     handler = Handler()
     handler.handler()

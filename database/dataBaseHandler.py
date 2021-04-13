@@ -11,7 +11,7 @@ def DataBaseDecorate(func):
     return wrapper
 
 
-class DataBase:
+class Connection:
     connections = None
     cursor = None
 
@@ -35,6 +35,11 @@ class DataBase:
                                      cursorclass=pymysql.cursors.DictCursor)
         return connection
 
+
+class DataBase(Connection):
+    def __init__(self):
+        super().__init__()
+
     def catalogProfiles(self, server) -> list:
         sql = f"SELECT * FROM profiles WHERE server = '{server}'"
         self.cursor.execute(sql)
@@ -45,7 +50,7 @@ class DataBase:
     def updateLastWalk(self, id, time):
         sql = f"UPDATE profiles SET lastWalk = '{time}' WHERE id = '{id}'"
         self.cursor.execute(sql)
-    
+
     @DataBaseDecorate
     def addProfile(self, profile: dict):
         sql = f'INSERT INTO profiles VALUES (' \
@@ -79,3 +84,28 @@ class DataBase:
         self.cursor.execute(sql)
         data = self.cursor.fetchall()
         return data
+
+
+class KeywordsDatabase(Connection):
+    def __init__(self):
+        super().__init__()
+
+    @DataBaseDecorate
+    def addKeyword(self, word):
+        sql = f"INSERT INTO keywords VALUES('NULL','{word}')"
+        self.cursor.execute(sql)
+
+    def checkKeyword(self, word):
+        sql = f"SELECT * FROM keywords WHERE request = '{word}'"
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
+
+    def get(self, idWord):
+        sql = f"SELECT * FROM keywords WHERE id = '{idWord}'"
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
+
+    def counterRows(self):
+        sql = "SELECT count(*) FROM keywords"
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
