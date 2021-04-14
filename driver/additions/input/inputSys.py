@@ -52,14 +52,14 @@ class ActionsDriver:
         Метод для возвращение на вкладу к сайтом яндекса
         в основном этот метод сделан для walker
 
-        :return True: возвращает когда наодит вкладку
+        :return True: возвращает когда находит вкладку
         """
         handles = self.driver.window_handles
         for element in handles:
             self.driver.switch_to_window(element)
             currentUrl = str(self.driver.current_url)
             try:
-                currentUrl.index('http://yandex')
+                currentUrl.index('https://yandex')
                 time.sleep(random.uniform(0.9, 2))
                 return True
             except ValueError:

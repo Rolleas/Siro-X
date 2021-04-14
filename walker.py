@@ -83,8 +83,7 @@ class Walker:
 
     def walkingCurrentRequest(self):
         self.action.swapOnYandexWindow()
-        url = self.chooseResult()
-        self.action.swapOnChoose(url)
+        self.newSite()
 
     def execute(self):
         self.firstSteps()
