@@ -47,6 +47,14 @@ class EditConfiguration:
         data = json.dumps(data)
         self._writeFile(data)
 
+    def checkName(self):
+        data = self._jsonTransformation()
+        for element in data['chrome']['versions']:
+            if element == self.name:
+                return True
+        else:
+            return False
+
     def addProfileConfig(self):
         """
         Добавление конфигурации в dict

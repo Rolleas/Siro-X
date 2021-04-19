@@ -6,6 +6,7 @@ from database.dataBaseHandler import DataBase
 from driver.session.remote.chromeObject import Session
 from driver.session.remote.chromeSettings import ChromeSettings,\
     ChromeCapabilities, ChromeFingerprint
+from server.browserConfig import EditConfiguration
 
 
 class Operation:
@@ -59,6 +60,9 @@ class Collection(Operation):
         options = self.chromeOptions()
         capabilities = self.capabilitiesOptions()
         fingerprint = self.fingerprintOptions()
+        config = EditConfiguration(options['profile'])
+        if config is False:
+            config.addProfileConfig()
         return Session(options, capabilities, fingerprint).make()
 
     def case(self):
