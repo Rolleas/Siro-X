@@ -72,5 +72,8 @@ class EditConfiguration:
 
         # Перезапуск серверной части для применения конфигурации
         os.system(self._command)
-        os.system(f'mkdir /home/profiles/{self.name}')
-        os.system(f'chmod 777 /home/profiles/{self.name}')
+        try:
+            os.system(f'mkdir /home/profiles/{self.name}')
+            os.system(f'chmod 777 /home/profiles/{self.name}')
+        except:
+            pass

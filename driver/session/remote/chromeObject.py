@@ -68,7 +68,7 @@ class Session:
         :return objectChrome: object
         """
         objectChrome = webdriver.Remote(
-            command_executor="http://45.156.22.26:4444/wd/hub",
+            command_executor="http://localhost:4444/wd/hub",
             options=self._chromeOptions(),
             desired_capabilities=self.capabilities)
         return objectChrome

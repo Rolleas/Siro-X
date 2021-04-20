@@ -61,7 +61,8 @@ class Collection(Operation):
         capabilities = self.capabilitiesOptions()
         fingerprint = self.fingerprintOptions()
         config = EditConfiguration(options['profile'])
-        if config is False:
+        status = config.checkName()
+        if status is False:
             config.addProfileConfig()
         return Session(options, capabilities, fingerprint).make()
 
