@@ -4,7 +4,7 @@ import os
 
 class EditConfiguration:
     _configPath = r'/root/.aerokube/selenoid/browsers.json'
-    _command = 'sh /home/server/reload.sh'
+    _command = 'sh /home/Siro-X/server/reload.sh'
 
     def __init__(self, name):
         """

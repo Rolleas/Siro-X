@@ -44,28 +44,42 @@ class Walker:
         return elements
 
     def chooseResult(self):
-        xpath = "//a/div[@class='OrganicTitle-LinkText organic__url-text' and 2]"
-        elements = self.driver.find_elements_by_xpath(xpath)
-        number = random.randint(0, len(elements)-1)
-        elements[number].click()
-        self.action.wait('/a')
-        time.sleep(random.uniform(0.3, 1))
-        return self.setUrlResult()[number].text
+        for counter in range(10):
+            try:
+                xpath = "//a/div[@class='OrganicTitle-LinkText organic__url-text' and 2]"
+                elements = self.driver.find_elements_by_xpath(xpath)
+                number = random.randint(0, len(elements) - 1)
+                elements[number].click()
+                self.action.wait('/a')
+                time.sleep(random.uniform(0.3, 1))
+                return self.setUrlResult()[number].text
+            except:
+                pass
+        return False
 
     def changePage(self):
-        elements = self.driver.find_elements_by_xpath('//a')
-        elements[random.randint(0, len(elements)-1)].click()
-        self.action.wait('//a')
-        time.sleep(random.uniform(0.3, 1))
+        for counter in range(10):
+            try:
+                elements = self.driver.find_elements_by_xpath('//a')
+                elements[random.randint(0, len(elements) - 1)].click()
+                self.action.wait('//a')
+                time.sleep(random.uniform(0.3, 1))
+                return True
+            except:
+                pass
+        return False
 
     def firstSteps(self):
         self.driver.get('http://yandex.ru')
         self.action.wait("//input[@id='text']")
         self.inputFirstRequest()
         url = self.chooseResult()
-        self.action.swapOnChoose(url)
-        self.action.scroll()
-        time.sleep(random.uniform(1, 5))
+        if url is not False:
+            self.action.swapOnChoose(url)
+            self.action.scroll()
+            time.sleep(random.uniform(1, 5))
+        else:
+            self.driver.quit()
 
     def inputNewRequest(self):
         self.action.swapOnYandexWindow()
@@ -74,11 +88,15 @@ class Walker:
 
     def newSite(self):
         url = self.chooseResult()
-        self.action.swapOnChoose(url)
+        if url is not False:
+            self.action.swapOnChoose(url)
+        else:
+            self.driver.quit()
 
     def actionsOnSite(self):
         self.action.scroll()
-        self.changePage()
+        if self.changePage() is not True:
+            return False
         time.sleep(random.uniform(0.3, 1.5))
 
     def walkingCurrentRequest(self):
@@ -90,7 +108,7 @@ class Walker:
         for _ in range(random.randint(5, 20)):
             for _ in range(random.randint(1, 5)):
                 self.walkingCurrentRequest()
-                self.actionsOnSite()
+                if self.actionsOnSite() is False:
+                    break
             self.inputNewRequest()
         self.driver.quit()
-

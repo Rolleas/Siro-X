@@ -8,7 +8,7 @@ from generator.profile import ProfileGenerator
 
 
 class Handler:
-    server = 'instance-1'
+    server = 'sk-1'
     threadList = []
 
     def loadProfile(self):
@@ -44,3 +44,6 @@ class Handler:
 if __name__ == '__main__':
     handler = Handler()
     handler.handler()
+
+
+
