@@ -1,3 +1,4 @@
+import os
 import ast
 from walker import Walker
 from datetime import datetime
@@ -74,3 +75,8 @@ class Collection(Operation):
         self.driver.quit()
         walkerBlog = WalkerBlog(self.driver)
         walkerBlog.start()
+        self.driver.quit()
+        try:
+            os.system('kill -9 $(pgrep -d' ' -f chrome)')
+        except:
+            print('Уже все закрыто *-* -><-')

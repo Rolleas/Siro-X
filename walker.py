@@ -44,13 +44,18 @@ class Walker:
         return elements
 
     def chooseResult(self):
-        xpath = "//a/div[@class='OrganicTitle-LinkText organic__url-text' and 2]"
-        elements = self.driver.find_elements_by_xpath(xpath)
-        number = random.randint(0, len(elements)-1)
-        elements[number].click()
-        self.action.wait('/a')
-        time.sleep(random.uniform(0.3, 1))
-        return self.setUrlResult()[number].text
+        for _ in range(10):
+            try:
+                xpath = "//a/div[@class='OrganicTitle-LinkText organic__url-text' and 2]"
+                elements = self.driver.find_elements_by_xpath(xpath)
+                number = random.randint(0, len(elements)-1)
+                elements[number].click()
+                self.action.wait('/a')
+                time.sleep(random.uniform(0.3, 1))
+                return self.setUrlResult()[number].text
+            except:
+                print("Не могу нажать *-* -><-")
+                continue
 
     def changePage(self):
         elements = self.driver.find_elements_by_xpath('//a')
