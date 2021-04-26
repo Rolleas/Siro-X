@@ -72,7 +72,6 @@ class Collection(Operation):
         walker = Walker(self.driver)
         walker.execute()
 
-        self.driver.quit()
         walkerBlog = WalkerBlog(self.driver)
         walkerBlog.start()
         self.driver.quit()

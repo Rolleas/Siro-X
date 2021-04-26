@@ -93,7 +93,7 @@ class Walker:
     def execute(self):
         self.firstSteps()
         for _ in range(random.randint(1, 3)):
-            for _ in range(random.randint(1, 5)):
+            for _ in range(random.randint(1, 3)):
                 self.walkingCurrentRequest()
                 self.actionsOnSite()
             self.inputNewRequest()
