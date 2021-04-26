@@ -7,6 +7,7 @@ from driver.session.remote.chromeObject import Session
 from driver.session.remote.chromeSettings import ChromeSettings,\
     ChromeCapabilities, ChromeFingerprint
 from server.browserConfig import EditConfiguration
+from walkerApBlog import WalkerBlog
 
 
 class Operation:
@@ -69,5 +70,7 @@ class Collection(Operation):
     def case(self):
         walker = Walker(self.driver)
         walker.execute()
-        self.driver.quit()
 
+        self.driver.quit()
+        walkerBlog = WalkerBlog(self.driver)
+        walkerBlog.start()

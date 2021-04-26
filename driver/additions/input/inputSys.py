@@ -110,10 +110,10 @@ class ActionsDriver:
             counter = random.randint(100, 300)
             for pixels in range(counter):
                 self.driver.execute_script(f"window.scrollBy(0,{pixels})")
-                time.sleep(random.uniform(0.2, 0.1))
+                time.sleep(random.uniform(0.3, 0.2))
 
             for pixels in range(counter):
                 self.driver.execute_script(f"window.scrollBy(0,-{pixels})")
-                time.sleep(random.uniform(0.2, 0.1))
+                time.sleep(random.uniform(0.3, 0.2))
 
 

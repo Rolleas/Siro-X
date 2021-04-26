@@ -57,6 +57,7 @@ class Session:
         chromeOptionsDriver.add_argument('--proxy-server=37.203.246.251:21230')
         chromeOptionsDriver.add_argument(
             f'user-data-dir=/home/profiles/{self.settings["profile"]}')
+        chromeOptionsDriver.add_argument('--proxy-server=37.203.246.9:19366')
         chromeOptionsDriver.add_experimental_option("prefs", preferences)
         chromeOptionsDriver.add_extension(self.initFingerprint())
         return chromeOptionsDriver
