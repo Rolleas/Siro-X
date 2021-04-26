@@ -8,7 +8,7 @@ from generator.profile import ProfileGenerator
 
 
 class Handler:
-    server = 'sk-1'
+    server = 'msk-1'
     threadList = []
 
     def loadProfile(self):
