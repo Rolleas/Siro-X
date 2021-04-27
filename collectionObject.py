@@ -78,4 +78,4 @@ class Collection(Operation):
         try:
             os.system('kill -9 $(pgrep -d' ' -f chrome)')
         except:
-            print('Уже все закрыто *-* -><-')
+            print('Closed *-* -><-')

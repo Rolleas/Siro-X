@@ -54,7 +54,7 @@ class Walker:
                 time.sleep(random.uniform(0.3, 1))
                 return self.setUrlResult()[number].text
             except:
-                print("Не могу нажать *-* -><-")
+                print("Can't tap *-* -><-")
                 continue
 
     def changePage(self):
