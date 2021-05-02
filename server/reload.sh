@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/server/
+cd /home/rolles/server/
 echo "=================="
 echo "Selenoid reload..."
 echo "=================="

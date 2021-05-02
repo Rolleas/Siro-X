@@ -106,14 +106,14 @@ class ActionsDriver:
 
         :return:
         """
-        for _ in range(random.randint(1, 5)):
-            counter = random.randint(100, 300)
+        for _ in range(random.randint(1, 3)):
+            counter = random.randint(10, 100)
             for pixels in range(counter):
                 self.driver.execute_script(f"window.scrollBy(0,{pixels})")
-                time.sleep(random.uniform(0.3, 0.2))
+                time.sleep(random.uniform(0.5, 0.2))
 
             for pixels in range(counter):
                 self.driver.execute_script(f"window.scrollBy(0,-{pixels})")
-                time.sleep(random.uniform(0.3, 0.2))
+                time.sleep(random.uniform(0.5, 0.2))
 
 
