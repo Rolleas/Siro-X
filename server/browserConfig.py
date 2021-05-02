@@ -64,7 +64,7 @@ class EditConfiguration:
             "image": "selenoid/chrome:89.0",
             "port": "4444",
             "volumes": [
-                f"/home/profiles/{self.name}:/home/profiles/{self.name}"],
+                f"/home/rolles/server/profiles/{self.name}:/home/rolles/server/profiles/{self.name}"],
             "path": "/"
         }
         data['chrome']['versions'][self.name] = image
@@ -73,7 +73,7 @@ class EditConfiguration:
         # Перезапуск серверной части для применения конфигурации
         os.system(self._command)
         try:
-            os.system(f'mkdir /home/profiles/{self.name}')
-            os.system(f'chmod 777 /home/profiles/{self.name}')
+            os.system(f'mkdir /home/rolles/server/profiles/{self.name}')
+            os.system(f'chmod 777 /home/rolles/server/profiles/{self.name}')
         except:
             pass

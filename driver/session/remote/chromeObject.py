@@ -56,7 +56,7 @@ class Session:
         }
         #schromeOptionsDriver.add_argument('--proxy-server=109.95.51.103:12231')
         chromeOptionsDriver.add_argument(
-            f'user-data-dir=/home/profiles/{self.settings["profile"]}')
+            f'user-data-dir=/home/rolles/server/profiles/{self.settings["profile"]}')
         chromeOptionsDriver.add_experimental_option("prefs", preferences)
         chromeOptionsDriver.add_extension(self.initFingerprint())
         return chromeOptionsDriver
